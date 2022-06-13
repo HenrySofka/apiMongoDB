@@ -59,4 +59,10 @@ public class RecursoController {
         return new ResponseEntity(service.isDisponible(id), HttpStatus.OK);
     }
 
+    @PutMapping("prestar/{id}")
+    public ResponseEntity<String> prestarLibro(@PathVariable("id") String id){
+        return new ResponseEntity(service.prestarLibro(id), HttpStatus.OK);
+    }
+
+
 }

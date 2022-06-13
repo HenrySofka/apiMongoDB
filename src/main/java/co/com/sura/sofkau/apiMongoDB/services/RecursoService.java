@@ -7,6 +7,7 @@ import co.com.sura.sofkau.apiMongoDB.repositories.IRecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,23 @@ public class RecursoService implements IRecursoService {
         }
 
         return "El Recurso esta DISPONIBLE!!";
+    }
+
+    @Override
+    public String prestarLibro(String id) {
+        Recurso recurso = repository.findById(id).orElseThrow(
+                () -> new RuntimeException("No se encontro el Recurso: [" + id + "]")
+        );
+
+        if(recurso.getIsPrestado()){
+            return "El Recurso ya esta prestado. Fecha de prestamo["+ recurso.getFechaPrestamo() +"]";
+        }
+
+        recurso.setFechaPrestamo(LocalDate.now());
+        recurso.setIsPrestado(true);
+        this.update(mapper.fromCollection(recurso));
+
+        return "Recurso DISPONIBLE --> Fecha de prestamo["+ recurso.getFechaPrestamo() +"]";
     }
 
 }
