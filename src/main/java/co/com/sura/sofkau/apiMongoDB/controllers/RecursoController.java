@@ -53,4 +53,10 @@ public class RecursoController {
         }
     }
 
+    //MÉTODOS DEL TALLER
+    @GetMapping("disponibilidad/{id}")
+    public ResponseEntity<String> isDisponible(@PathVariable("id") String id){
+        return new ResponseEntity(service.isDisponible(id), HttpStatus.OK);
+    }
+
 }

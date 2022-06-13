@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecursoService {
+public class RecursoService implements IRecursoService {
     @Autowired
     private IRecursoRepository repository;
     private RecursoMapper mapper = new RecursoMapper();
@@ -45,5 +45,17 @@ public class RecursoService {
         repository.deleteById(id);
     }
 
+    @Override
+    public String isDisponible(String id){
+        Recurso recurso = repository.findById(id).orElseThrow(
+                () -> new RuntimeException("No se encontro el Recurso: [" + id + "]")
+        );
+
+        if(recurso.getIsPrestado()){
+            return "El Recurso ya esta prestado. Fecha de prestamo["+ recurso.getFechaPrestamo() +"]";
+        }
+
+        return "El Recurso esta DISPONIBLE!!";
+    }
 
 }
