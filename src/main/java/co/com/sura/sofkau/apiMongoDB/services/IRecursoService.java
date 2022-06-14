@@ -28,4 +28,11 @@ public interface IRecursoService {
     public List<RecursoDTO> recomendarPorAreatematica(String areaTematica);
     public List<RecursoDTO> recomendarPorTipoYArea(String tipoRecurso, String areaTematica);
 
+    /*
+    *Devolver un recurso que se encontraba prestado, obviamente si un recurso no se encuentra en
+    * préstamo no podrá ser devuelto. Indicar el resultado con un mensaje.
+    * */
+    public String devolverRecurso(String id);
+
+
 }

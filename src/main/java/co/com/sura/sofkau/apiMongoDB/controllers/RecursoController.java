@@ -94,4 +94,9 @@ public class RecursoController {
         return new ResponseEntity(lista, HttpStatus.OK);
     }
 
+    @PutMapping("devolver/{id}")
+    public ResponseEntity<String> devolverRecurso(@PathVariable("id") String id){
+        return new ResponseEntity(service.devolverRecurso(id), HttpStatus.OK);
+    }
+
 }

@@ -96,5 +96,21 @@ public class RecursoService implements IRecursoService {
         return lista;
     }
 
+    @Override
+    public String devolverRecurso(String id) {
+        Recurso recurso = repository.findById(id).orElseThrow(
+                () -> new RuntimeException("No se encontro el Recurso: [" + id + "]")
+        );
+
+        if(recurso.getIsPrestado()){
+            recurso.setFechaPrestamo(null);
+            recurso.setIsPrestado(false);
+            this.update(mapper.fromCollection(recurso));
+            return "Recurso DEVUELTO correctamente";
+        }
+
+        return "El recurso no a sido prestado --> DISPONIBLE";
+    }
+
 
 }
