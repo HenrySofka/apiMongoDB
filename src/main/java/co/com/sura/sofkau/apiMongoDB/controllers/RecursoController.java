@@ -64,5 +64,34 @@ public class RecursoController {
         return new ResponseEntity(service.prestarLibro(id), HttpStatus.OK);
     }
 
+    @GetMapping("tipo/{tipoRecurso}")
+    public ResponseEntity<List<RecursoDTO>> recomendarPorTipoRecurso(@PathVariable("tipoRecurso") String tipoRecurso){
+        List<RecursoDTO> lista = service.recomendarPorTipoRecurso(tipoRecurso);
+        if (lista.isEmpty()){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(lista, HttpStatus.OK);
+    }
+
+    @GetMapping("tematica/{areaTematica}")
+    public ResponseEntity<List<RecursoDTO>> recomendarPorAreatematica(@PathVariable("areaTematica") String areaTematica){
+        List<RecursoDTO> lista = service.recomendarPorAreatematica(areaTematica);
+        if (lista.isEmpty()){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(lista, HttpStatus.OK);
+    }
+
+    @GetMapping("tipo_tematica/{tipoRecurso}/{areaTematica}")
+    public ResponseEntity<List<RecursoDTO>> recomendarPorTipoYArea(
+            @PathVariable("tipoRecurso") String tipoRecurso,
+            @PathVariable("areaTematica") String areaTematica
+    ){
+        List<RecursoDTO> lista = service.recomendarPorTipoYArea(tipoRecurso,areaTematica);
+        if (lista.isEmpty()){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(lista, HttpStatus.OK);
+    }
 
 }

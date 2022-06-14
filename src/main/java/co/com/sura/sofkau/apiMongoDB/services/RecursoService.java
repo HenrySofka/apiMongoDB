@@ -76,4 +76,25 @@ public class RecursoService implements IRecursoService {
         return "Recurso DISPONIBLE --> Fecha de prestamo["+ recurso.getFechaPrestamo() +"]";
     }
 
+    @Override
+    public List<RecursoDTO> recomendarPorTipoRecurso(String tipoRecurso) {
+        List<RecursoDTO> lista = mapper.fromCollectionList(repository.findByTipoRecurso(tipoRecurso));
+        return lista;
+    }
+
+    @Override
+    public List<RecursoDTO> recomendarPorAreatematica(String areaTematica) {
+        List<RecursoDTO> lista = mapper.fromCollectionList(repository.findByAreaTematica(areaTematica));
+        return lista;
+    }
+
+    @Override
+    public List<RecursoDTO> recomendarPorTipoYArea(String tipoRecurso, String areaTematica) {
+        List<RecursoDTO> lista = mapper.fromCollectionList(
+                repository.findByTipoRecursoAndAreaTematica(tipoRecurso, areaTematica)
+        );
+        return lista;
+    }
+
+
 }
